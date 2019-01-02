@@ -1,0 +1,11 @@
+{
+  "name": "mjgenerator",
+  "version": "1.0.0",
+  "description": "this is the tool generating screenshot for CH Play ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "morejump",
+  "license": "ISC"
+}
