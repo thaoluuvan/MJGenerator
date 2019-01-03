@@ -1,5 +1,14 @@
 var Jimp = require('jimp');
 const chalk = require('chalk');
+
+const testFolder = './';
+const fs = require('fs');
+
+fs.readdir(testFolder, (err, files) => {
+  files.forEach(file => {
+    console.log(file);
+  });
+})
  
 console.log(chalk.blue.bold('Develope by Morejump!!!'));
 
