@@ -1,4 +1,7 @@
 var Jimp = require('jimp');
+const chalk = require('chalk');
+ 
+console.log(chalk.blue.bold('Develope by Morejump!!!'));
 
 //if you are following along, create the following 2 images relative to this script:
 var imgRaw = 'raw/image1.jpg'; //a 1024px x 1024px backgroound image
