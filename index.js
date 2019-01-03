@@ -1,4 +1,5 @@
-var Jimp = require('jimp');
+const Jimp = require('jimp');
+const program = require('commander');
 const chalk = require('chalk');
 const isImage = require('is-image');
 
@@ -18,10 +19,19 @@ function convertToGrey(nameImage){
   Jimp.read(nameImage, (err, iamge) => {
     if (err) throw err;
     iamge
-      //.resize(500, 500) // resize
       .quality(100) // set JPEG quality
       .greyscale() // set greyscale
       .write(nameImage); // save
   });
 }
-listImage();
+function mergeImage(){
+  program
+  .option('--no-sauce', 'Remove sauce')
+  .parse(process.argv);
+
+console.log('you ordered a pizza');
+if (program.sauce) console.log('  with sauce');
+else console.log(' without sauce');
+}
+//listImage();
+mergeImage();
