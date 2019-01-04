@@ -7,7 +7,6 @@ const inquirer = require("inquirer");
 const introText = "MJ Generator";
 const currentFolder = "./";
 const fs = require("fs");
-
 // init
 function init() {
   console.log(
@@ -22,13 +21,14 @@ function init() {
 }
 
 // list image in current folder
-function listImage() {
-  fs.readdir(currentFolder, (err, files) => {
-    files.forEach(file => {
+async function listImage() {
+  await fs.readdir(currentFolder, async (err, files) => {
+    for (const file of files) {
       if (isImage(file)) {
-      askTitleImage(file);
+        await askTitleImage(file);
       }
-    });
+    }
+    console.log("Done");
   });
 }
 
@@ -51,10 +51,9 @@ function askTitleImage(namFile) {
   return inquirer.prompt(questions);
 }
 // run program
-const run = async () => {
+async function run () {
   init();
-  //const title = await askTitleImage();
   await listImage();
-  console.log(chalk.red("Generated screenshots successfully!!!"));
+  console.log('Done');
 };
 run();
