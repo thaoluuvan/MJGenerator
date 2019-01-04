@@ -33,7 +33,10 @@ async function listImage() {
 }
 
 // merge images
-function mergeImage() {}
+function mergeImage() {
+
+  
+}
 
 // insert text to image
 function insetTextToImage(text) {}
