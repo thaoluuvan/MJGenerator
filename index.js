@@ -2,10 +2,24 @@ const Jimp = require('jimp');
 const program = require('commander');
 const chalk = require('chalk');
 const isImage = require('is-image');
-
+const figlet = require('figlet');
+const introText = 'MJ Generator'
 const currentFolder = './';
 const fs = require('fs');
 
+// init
+function init (){
+  console.log(
+    chalk.green(
+      figlet.textSync(introText, {
+        horizontalLayout: "default",
+        verticalLayout: "default"
+      })
+    )
+  );  
+};
+
+// list image in current folder
 function listImage(){
   fs.readdir(currentFolder, (err, files) => {
     files.forEach(file => {
@@ -15,6 +29,7 @@ function listImage(){
     });
   })
 };
+// convert images to grey images
 function convertToGrey(nameImage){
   Jimp.read(nameImage, (err, iamge) => {
     if (err) throw err;
@@ -24,14 +39,11 @@ function convertToGrey(nameImage){
       .write(nameImage); // save
   });
 }
+// merge images
 function mergeImage(){
-  program
-  .option('--no-sauce', 'Remove sauce')
-  .parse(process.argv);
-
-console.log('you ordered a pizza');
-if (program.sauce) console.log('  with sauce');
-else console.log(' without sauce');
 }
-//listImage();
-mergeImage();
+const run = async() =>{
+ init();
+ listImage();
+};
+run();
