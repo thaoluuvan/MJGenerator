@@ -51,9 +51,7 @@ function askTitleImage(namFile) {
   return inquirer.prompt(questions);
 }
 // run program
-async function run () {
+async function run() {
   init();
-  await listImage();
-  console.log('Done');
-};
+}
 run();
