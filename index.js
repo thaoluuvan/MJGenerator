@@ -28,7 +28,7 @@ async function listImage() {
         await askTitleImage(file);
       }
     }
-    console.log("Done");
+    console.log("Xong");
   });
 }
 
@@ -42,7 +42,7 @@ function mergeImage() {
 function insetTextToImage(text) {}
 
 // ask title for image
-function askTitleImage(namFile) {
+async function askTitleImage(namFile) {
   console.log("Title for " + namFile + " image:");
   const questions = [
     {
@@ -51,10 +51,12 @@ function askTitleImage(namFile) {
       message: "What's title?"
     }
   ];
-  return inquirer.prompt(questions);
+  return await inquirer.prompt(questions);
 }
 // run program
 async function run() {
-  init();
+  await init();
+  await listImage();
+  console.log('Done');
 }
 run();
