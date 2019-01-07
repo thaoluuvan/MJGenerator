@@ -1,22 +1,18 @@
-function resolveAfter2Seconds() {
-  return new Promise(resolve => {
-    setTimeout(() => {
-      resolve("resolved");
-    }, 2000);
-  });
+function nhau_an_mung() {
+  console.log("inside nhau_an_mung");
+  return Promise.resolve(500);
 }
-
-async function asyncCall() {
-  console.log("calling");
-  var result = await resolveAfter2Seconds();
-  //console.log(result);
-  return result;
-  // expected output: 'resolved'
-}
-
- async function run() {
-  console.log('show me');
-  const result = asyncCall();
-  console.log('done and '+ await result);
-}
+var run = () => {
+  nhau_an_mung()
+    .then(tien => {
+      console.log("tien: " + tien);
+      return Promise.resolve('Hello');
+    })
+    .then(tienl => {
+      console.log("tienl: " + tienl);
+    })
+    .catch(error => {
+      console.log(error);
+    });
+};
 run();
