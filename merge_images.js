@@ -2,7 +2,7 @@ var Jimp = require("jimp");
 
 //if you are following along, create the following 2 images relative to this script:
 let imgRaw = "raw/image1.jpg"; //a 1024px x 1024px backgroound image
-let imgLogo = "raw/logo.png"; //a 155px x 72px logo
+let imgLogo = "raw/trinhxinhgai.png"; //a 155px x 72px logo
 //---
 
 let imgActive = "active/image.jpg";
@@ -14,4 +14,21 @@ Jimp.read(imgRaw)
   })
   .then(() => {
     return Jimp.read(imgActive);
+  })
+  .then(imageActive => {
+    return Jimp.read(imgLogo).then(logo => {
+      var finalImage = imageActive.composite(logo, 0, 0, [
+        Jimp.BLEND_DESTINATION_OVER,
+        1,
+        1
+      ]);
+      return finalImage;
+    });
+  })
+  .then(finalImage => {
+    finalImage.quality(100).write(imgExported);
+    console.log("Done");
+  })
+  .catch(error => {
+    console.error(error);
   });
