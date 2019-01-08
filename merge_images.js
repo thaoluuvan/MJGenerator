@@ -17,13 +17,17 @@ Jimp.read(imgRaw)
   })
   .then(imageActive => {
     return Jimp.read(imgLogo).then(logo => {
-      var finalImage = imageActive.composite(logo, 0, 0, [
+      var mergeImage = imageActive.composite(logo, 0, 0, [
         Jimp.BLEND_DESTINATION_OVER,
         1,
         1
       ]);
-      return finalImage;
+      return mergeImage;
     });
+  })
+  .then(() => {
+
+    
   })
   .then(finalImage => {
     finalImage.quality(100).write(imgExported);

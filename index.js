@@ -20,43 +20,22 @@ function init() {
   console.log(chalk.red("Starting...."));
 }
 
-// list image in current folder
-async function listImage() {
-  await fs.readdir(currentFolder, async (err, files) => {
-    for (const file of files) {
-      if (isImage(file)) {
-        await askTitleImage(file);
-      }
-    }
-    console.log("Xong");
-  });
-}
-
-// merge images
-function mergeImage() {
-
-  
-}
-
-// insert text to image
-function insetTextToImage(text) {}
-
 // ask title for image
-async function askTitleImage(namFile) {
-  console.log("Title for " + namFile + " image:");
+function askTitleImage(namFile) {
+  if (!isImage(file)) return;
+  console.log("Title for " + namFile + " image: \n");
   const questions = [
     {
       name: "TITLE",
       type: "input",
-      message: "What's title?"
+      message: "What's title?\n"
     }
   ];
-  return await inquirer.prompt(questions);
+  return inquirer.prompt(questions);
 }
 // run program
 async function run() {
-  await init();
-  await listImage();
-  console.log('Done');
+  init();
+  console.log("Done");
 }
 run();
