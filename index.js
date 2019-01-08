@@ -19,29 +19,31 @@ function init() {
   );
   console.log(chalk.red("Starting...."));
 }
-
+// get image files
+async function getImageFiles() {
+  var files = fs.readdirSync(currentFolder);
+  for (var i = 0; i < files.length; i++) {
+    if (isImage(files[i])) {
+      var description = await askDescriptionImage(files[i]);
+      console.log(description);
+    }
+  }
+}
 // ask title for image
-async function askTitleImage() {
+async function askDescriptionImage(fileName) {
   return inquirer.prompt([
     {
-      name: "name",
+      name: "description",
       type: "input",
-      message: "What's your name?"
-    },
-    {
-      name: "iceCream",
-      type: "list",
-      message: "Which is your favorite of the following ice cream flavors?",
-      choices: ["green tea", "poppyseed jam", "chile", "vanilla"],
-      default: 3
+      message: "What's description for " + fileName + "?"
     }
   ]);
 }
 // run program
 async function run() {
   init();
-  var result = await askTitleImage();
-  console.log(result);
+  await getImageFiles();
+  console.log("");
   console.log("Done");
 }
 run();
