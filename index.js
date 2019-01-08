@@ -23,9 +23,9 @@ function init() {
 async function getImageFiles() {
   var files = fs.readdirSync(currentFolder);
   for (var i = 0; i < files.length; i++) {
-    if (isImage(files[i])) {
-      var description = await askDescriptionImage(files[i]);
-      console.log(description);
+    var file = files[i];
+    if (isImage(file) ){
+      var description = await askDescriptionImage(file);
     }
   }
 }
@@ -43,7 +43,6 @@ async function askDescriptionImage(fileName) {
 async function run() {
   init();
   await getImageFiles();
-  console.log("");
   console.log("Done");
 }
 run();
