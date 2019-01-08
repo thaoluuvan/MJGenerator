@@ -7,7 +7,7 @@ const inquirer = require("inquirer");
 const introText = "MJ Generator";
 const currentFolder = "./";
 const fs = require("fs");
-const imgRaw = "import/001.jpg";
+const importImage = "import/001.jpg";
 const imgLogo = "import/trinhxinhgai.png";
 const imgActive = "active/image.jpg";
 const imgExported = "export/image1.jpg";
@@ -39,8 +39,8 @@ async function getImageFiles() {
   }
 }
 // merge images
-function mergeImages() {
-  Jimp.read(imgRaw)
+function mergeImages(fileName, description) {
+  Jimp.read(importImage)
     .then(jimpImage => {
       jimpImage.clone().write(imgActive);
     })
@@ -60,7 +60,6 @@ function mergeImages() {
     })
     .then(finalImage => {
       finalImage.quality(100).write(imgExported);
-      console.log("Done");
     })
     .catch(error => {
       console.error(error);
