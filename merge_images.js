@@ -2,11 +2,11 @@ var Jimp = require("jimp");
 
 //if you are following along, create the following 2 images relative to this script:
 let imgRaw = "raw/image1.jpg"; //a 1024px x 1024px backgroound image
-let imgLogo = "raw/trinhxinhgai.png"; //a 155px x 72px logo
+let imgLogo = "raw/download.jpg"; //a 155px x 72px logo
 //---
 
 let imgActive = "active/image.jpg";
-let imgExported = "export/image1.jpg";
+let imgExported = "export/";
 //
 Jimp.read(imgRaw)
   .then(jimpImage => {
@@ -24,10 +24,6 @@ Jimp.read(imgRaw)
       ]);
       return mergeImage;
     });
-  })
-  .then(() => {
-
-    
   })
   .then(finalImage => {
     finalImage.quality(100).write(imgExported);
