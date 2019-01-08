@@ -21,21 +21,27 @@ function init() {
 }
 
 // ask title for image
-function askTitleImage(namFile) {
-  if (!isImage(file)) return;
-  console.log("Title for " + namFile + " image: \n");
-  const questions = [
+async function askTitleImage() {
+  return inquirer.prompt([
     {
-      name: "TITLE",
+      name: "name",
       type: "input",
-      message: "What's title?\n"
+      message: "What's your name?"
+    },
+    {
+      name: "iceCream",
+      type: "list",
+      message: "Which is your favorite of the following ice cream flavors?",
+      choices: ["green tea", "poppyseed jam", "chile", "vanilla"],
+      default: 3
     }
-  ];
-  return inquirer.prompt(questions);
+  ]);
 }
 // run program
 async function run() {
   init();
+  var result = await askTitleImage();
+  console.log(result);
   console.log("Done");
 }
 run();
