@@ -14,6 +14,13 @@ const xCorrdinate = 180;
 const yCorrdinate = 748;
 const width = 885;
 const height = 1454;
+let textData = {
+  text: 'Screenshotted by Morejump', //the text to be rendered on the image
+  maxWidth: 1004, //image width - 10px margin left - 10px margin right
+  maxHeight: 72+20, //logo height + margin
+  placementX: 10, // 10px in on the x axis
+  placementY: 10 //bottom of the image: height - maxHeight - margin 
+};
 
 // init
 function init() {
@@ -58,6 +65,26 @@ async function mergeImages(fileName, description) {
         );
         return mergedImage;
       });
+    }) //load font
+    .then(tpl =>
+      Jimp.loadFont(Jimp.FONT_SANS_128_BLACK).then(font => [tpl, font])
+    )
+    .then(data => {
+      tpl = data[0];
+      font = data[1];
+
+      return tpl.print(
+        font,
+        textData.placementX,
+        textData.placementY,
+        {
+          text: description,
+          alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
+          alignmentY: Jimp.VERTICAL_ALIGN_MIDDLE
+        },
+        textData.maxWidth,
+        textData.maxHeight
+      );
     })
     .then(finalImage => {
       finalImage.quality(100).write(exportFolder + fileName);
