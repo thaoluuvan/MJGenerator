@@ -9,8 +9,8 @@ const currentFolder = "./";
 const exportFolder = "export/";
 const fs = require("fs");
 const importImage = "import/001.jpg";
-const imgLogo = "import/trinhxinhgai.png";
-const imgActive = "active/image.jpg";
+const screenshotFrame = "import/001.jpg";
+const activeImage = "active/image.jpg";
 const imgExported = "export/image1.jpg";
 const xCorrdinate = 180;
 const yCorrdinate = 748;
@@ -43,21 +43,21 @@ async function getImageFiles() {
 // merge images
 async function mergeImages(fileName, description) {
   return await Jimp.read(currentFolder + fileName)
-    .then(jimpImage => {
-      jimpImage.clone().write(imgActive);
+    .then(importImage => {
+      importImage.clone().write(activeImage);
     })
     .then(() => {
-      return Jimp.read(imgActive);
+      return Jimp.read(activeImage);
     })
     .then(imageActive => {
-      return Jimp.read(imgLogo).then(logo => {
-        logo.resize(width, height);
-        var mergeImage = imageActive.composite(logo, xCorrdinate, yCorrdinate, [
+      imageActive.resize(width, height);
+      return Jimp.read(screenshotFrame).then(screenshotFrame => {
+        var mergedImage = screenshotFrame.composite(imageActive, xCorrdinate, yCorrdinate, [
           Jimp.BLEND_DESTINATION_OVER,
           1,
           1
         ]);
-        return mergeImage;
+        return mergedImage;
       });
     })
     .then(finalImage => {
