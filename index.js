@@ -3,15 +3,13 @@ const chalk = require("chalk");
 const isImage = require("is-image");
 const figlet = require("figlet");
 const inquirer = require("inquirer");
+const fs = require("fs");
 //
 const introText = "MJ Generator";
 const currentFolder = "./";
 const exportFolder = "export/";
-const fs = require("fs");
-const importImage = "import/001.jpg";
-const screenshotFrame = "import/001.jpg";
+const screenshotFrame = "import/official.jpg";
 const activeImage = "active/image.jpg";
-const imgExported = "export/image1.jpg";
 const xCorrdinate = 180;
 const yCorrdinate = 748;
 const width = 885;
@@ -52,17 +50,18 @@ async function mergeImages(fileName, description) {
     .then(imageActive => {
       imageActive.resize(width, height);
       return Jimp.read(screenshotFrame).then(screenshotFrame => {
-        var mergedImage = screenshotFrame.composite(imageActive, xCorrdinate, yCorrdinate, [
-          Jimp.BLEND_DESTINATION_OVER,
-          1,
-          1
-        ]);
+        var mergedImage = screenshotFrame.composite(
+          imageActive,
+          xCorrdinate,
+          yCorrdinate,
+          [Jimp.BLEND_DESTINATION_OVER, 1, 1]
+        );
         return mergedImage;
       });
     })
     .then(finalImage => {
       finalImage.quality(100).write(exportFolder + fileName);
-      console.log("Merged image!!!");
+      console.log(chalk.red("Merged image!!!"));
     })
     .catch(error => {
       console.error(error);
