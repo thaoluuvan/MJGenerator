@@ -15,11 +15,11 @@ const yCorrdinate = 748;
 const width = 885;
 const height = 1454;
 let textData = {
-  text: 'Screenshotted by Morejump', //the text to be rendered on the image
-  maxWidth: 1004, //image width - 10px margin left - 10px margin right
-  maxHeight: 72+20, //logo height + margin
-  placementX: 10, // 10px in on the x axis
-  placementY: 10 //bottom of the image: height - maxHeight - margin 
+  text: "Screenshotted by Morejump", //the text to be rendered on the image
+  maxWidth: 1000, //image width - 10px margin left - 10px margin right
+  maxHeight: 100, //logo height + margin
+  placementX: 100, // 10px in on the x axis
+  placementY: 200 //bottom of the image: height - maxHeight - margin
 };
 
 // init
@@ -32,6 +32,7 @@ function init() {
       })
     )
   );
+  console.log(chalk.yellow("Screenshots Generator by Morejump"));
   console.log(chalk.red("Starting...."));
 }
 // get image files
@@ -41,7 +42,11 @@ async function getImageFiles() {
     var file = files[i];
     if (isImage(file)) {
       var result = await askDescriptionImage(file);
-      await mergeImages(file, result.description);
+      try {
+        await mergeImages(file, result.description);
+      } catch (error) {
+        console.error(error);
+      }
     }
   }
 }
@@ -88,7 +93,7 @@ async function mergeImages(fileName, description) {
     })
     .then(finalImage => {
       finalImage.quality(100).write(exportFolder + fileName);
-      console.log(chalk.red("Merged image!!!"));
+      console.log(chalk.red("Generated screenshot!!!"));
     })
     .catch(error => {
       console.error(error);
@@ -100,7 +105,7 @@ async function askDescriptionImage(fileName) {
     {
       name: "description",
       type: "input",
-      message: "What's description for " + fileName + "?"
+      message: "What's description for " + chalk.green(fileName) + "?"
     }
   ]);
 }
@@ -108,6 +113,6 @@ async function askDescriptionImage(fileName) {
 async function run() {
   init();
   await getImageFiles();
-  console.log("Done");
+  console.log(chalk.green("Congratulations!!! You are done."));
 }
 run();
