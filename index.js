@@ -115,4 +115,6 @@ async function run() {
   await getImageFiles();
   console.log(chalk.green("Congratulations!!! You are done."));
 }
-run();
+
+//run();
+module.exports = { run };

@@ -2,9 +2,13 @@
   "name": "mjgenerator",
   "version": "1.0.0",
   "description": "this is the tool generating screenshot for CH Play ",
-  "main": "index.js",
+  "main": "main.js",
+  "bin": {
+    "morejump": "./index.js"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "morejump": "node main.js"
   },
   "author": "morejump",
   "license": "ISC",
