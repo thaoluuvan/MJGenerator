@@ -1,15 +1,13 @@
 #!/usr/bin/env node
 const program = require("commander");
+const shell = require('shelljs');
 const { run } = require("./index.js");
-console.log('running');
-program.version("1.0").description("Contact management system");
+program.version("1.0").description("MjGenerator is the tool generating screenshots for CH Play, App store quickly!!!");
 program
   .command("generate")
   .alias("g")
-  .description("Generate screenshots for images in current folder"p)
-  .action(() => {
-    run();
-    console.log('running.....');
+  .description("Generate screenshots for images in current folder")
+  .action(async () => {
+    await run();
   });
 program.parse(process.argv);
-

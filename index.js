@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 const Jimp = require("jimp");
 const chalk = require("chalk");
 const isImage = require("is-image");
@@ -116,5 +117,4 @@ async function run() {
   console.log(chalk.green("Congratulations!!! You are done."));
 }
 
-//run();
 module.exports = { run };
