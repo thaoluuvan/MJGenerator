@@ -15,6 +15,7 @@ const xCorrdinate = 180;
 const yCorrdinate = 748;
 const width = 885;
 const height = 1454;
+const maxCharacters = 41;
 let textData = {
   text: "Screenshotted by Morejump",
   maxWidth: 1000,
@@ -114,7 +115,11 @@ async function askDescriptionImage(fileName) {
       message:
         "What's description for " +
         chalk.green(fileName) +
-        " (max: 41 characters)?"
+        " (max: 41 characters)?",
+      validate: description => {
+        console.log(description.length);
+        return description.length <= maxCharacters;
+      }
     },
     {
       name: "layout",
