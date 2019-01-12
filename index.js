@@ -44,8 +44,6 @@ async function getImageFiles() {
     if (isImage(file)) {
       var result = await askDescriptionImage(file);
       try {
-        console.log(result.confirm);
-        console.log(result.layout);
         if (result.confirm === true) {
           await mergeImages(file, result.description);
         } else {
@@ -53,6 +51,7 @@ async function getImageFiles() {
         }
       } catch (error) {
         console.log("Error occurs while merging image, try again!!!");
+        i--;
       }
     }
   }

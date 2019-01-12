@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 const program = require("commander");
-const shell = require('shelljs');
 const { run } = require("./index.js");
 program.version("1.0").description("MjGenerator is the tool generating screenshots for CH Play, App store quickly!!!");
 program
