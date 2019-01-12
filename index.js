@@ -16,11 +16,11 @@ const yCorrdinate = 748;
 const width = 885;
 const height = 1454;
 let textData = {
-  text: "Screenshotted by Morejump", //the text to be rendered on the image
-  maxWidth: 1000, //image width - 10px margin left - 10px margin right
-  maxHeight: 100, //logo height + margin
-  placementX: 100, // 10px in on the x axis
-  placementY: 200 //bottom of the image: height - maxHeight - margin
+  text: "Screenshotted by Morejump",
+  maxWidth: 1000,
+  maxHeight: 100,
+  placementX: 100,
+  placementY: 200
 };
 
 // init
@@ -46,7 +46,7 @@ async function getImageFiles() {
       try {
         await mergeImages(file, result.description);
       } catch (error) {
-        console.error(error);
+        console.log("Error occurs while merging image, try again!!!");
       }
     }
   }
@@ -106,7 +106,18 @@ async function askDescriptionImage(fileName) {
     {
       name: "description",
       type: "input",
-      message: "What's description for " + chalk.green(fileName) + "?"
+      message: "What's description for " + chalk.green(fileName) + " (max: 41 characters)?"
+    },
+    {
+      name: "layout",
+      type: "list",
+      message: "Choose desired layout?",
+      choices:["Show Top", "Show Bottom"]
+    },
+    {
+      name: "confirm",
+      type: "confirm",
+      message: "Are your sure?"
     }
   ]);
 }
@@ -114,7 +125,7 @@ async function askDescriptionImage(fileName) {
 async function run() {
   init();
   await getImageFiles();
-  console.log(chalk.green("Congratulations!!! You are done."));
+  console.log(chalk.green("Congratulations, You are done. Check "+chalk.red("export")+" folder, plz!!!"));
 }
 
 module.exports = { run };
