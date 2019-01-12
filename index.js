@@ -44,6 +44,7 @@ async function getImageFiles() {
     console.log(chalk.red("No images in current folder!!!"));
     return;
   }
+
   for (var i = 0; i < files.length; i++) {
     var file = files[i];
     if (isImage(file)) {
@@ -71,8 +72,6 @@ async function mergeImages(fileName, description) {
       return Jimp.read(activeImage);
     })
     .then(activeImage => {
-      console.log(activeImage.bitmap.width);
-      console.log(activeImage.bitmap.height);
       return activeImage.crop(
         0,
         0,
@@ -80,11 +79,11 @@ async function mergeImages(fileName, description) {
         (activeImage.bitmap.height * 8) / 10
       );
     })
-    .then(imageActive => {
-      imageActive.resize(width, height);
+    .then(croppedImage => {
+      croppedImage.resize(width, height);
       return Jimp.read(screenshotFrame).then(screenshotFrame => {
         var mergedImage = screenshotFrame.composite(
-          imageActive,
+          croppedImage,
           xCorrdinate,
           yCorrdinate,
           [Jimp.BLEND_DESTINATION_OVER, 1, 1]
@@ -130,10 +129,7 @@ async function askDescriptionImage(fileName) {
         "What's description for " +
         chalk.green(fileName) +
         " (max: 41 characters)?",
-      validate: description => {
-        console.log(description.length);
-        return description.length <= maxCharacters;
-      }
+      validate: description => description.length <= 41
     },
     {
       name: "layout",
