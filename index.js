@@ -44,7 +44,13 @@ async function getImageFiles() {
     if (isImage(file)) {
       var result = await askDescriptionImage(file);
       try {
-        await mergeImages(file, result.description);
+        console.log(result.confirm);
+        console.log(result.layout);
+        if (result.confirm === true) {
+          await mergeImages(file, result.description);
+        } else {
+          i--;
+        }
       } catch (error) {
         console.log("Error occurs while merging image, try again!!!");
       }
@@ -106,13 +112,16 @@ async function askDescriptionImage(fileName) {
     {
       name: "description",
       type: "input",
-      message: "What's description for " + chalk.green(fileName) + " (max: 41 characters)?"
+      message:
+        "What's description for " +
+        chalk.green(fileName) +
+        " (max: 41 characters)?"
     },
     {
       name: "layout",
       type: "list",
       message: "Choose desired layout?",
-      choices:["Show Top", "Show Bottom"]
+      choices: ["Show Top", "Show Bottom"]
     },
     {
       name: "confirm",
@@ -125,7 +134,13 @@ async function askDescriptionImage(fileName) {
 async function run() {
   init();
   await getImageFiles();
-  console.log(chalk.green("Congratulations, You are done. Check "+chalk.red("export")+" folder, plz!!!"));
+  console.log(
+    chalk.green(
+      "Congratulations, You are done. Check " +
+        chalk.red("export") +
+        " folder, plz!!!"
+    )
+  );
 }
 
 module.exports = { run };
