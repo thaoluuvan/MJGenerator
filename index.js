@@ -9,12 +9,17 @@ const fs = require("fs");
 const introText = "MJ Generator";
 const currentFolder = "./";
 const exportFolder = "export/";
-const screenshotFrame = __dirname + "/import/official.jpg";
+const showtop = __dirname + "/import/showtop.jpg";
+const showbottom = __dirname + "/import/showbottom.jpg";
 const activeImage = "active/image.jpg";
-const xCorrdinate = 180;
-const yCorrdinate = 748;
-const width = 885;
-const height = 1454;
+const xCorrdinateTop = 180;
+const yCorrdinateTop = 748;
+const xCorrdinateBottom = 180;
+const yCorrdinateBottom = 0;
+const widthTop = 885;
+const heightTop = 1454;
+const widthBottom = 885;
+const heightBottom = 1497;
 const maxCharacters = 41;
 let textData = {
   text: "Screenshotted by Morejump",
@@ -51,7 +56,7 @@ async function getImageFiles() {
       var result = await askDescriptionImage(file);
       try {
         if (result.confirm === true) {
-          await mergeImages(file, result.description);
+          await mergeImages(file, result.description, result.layout);
         } else {
           i--;
         }
@@ -63,7 +68,16 @@ async function getImageFiles() {
   }
 }
 // merge images
-async function mergeImages(fileName, description) {
+async function mergeImages(fileName, description, layoutType) {
+  if (layoutType === "Show Top") {
+    return await mergeImageToTop(fileName, description);
+  } else {
+    return await mergeImageToBottom(fileName, description);
+  }
+}
+
+// merge image to top layout
+async function mergeImageToTop(fileName, description) {
   return await Jimp.read(currentFolder + fileName)
     .then(importImage => {
       importImage.clone().write(activeImage);
@@ -80,12 +94,69 @@ async function mergeImages(fileName, description) {
       );
     })
     .then(croppedImage => {
-      croppedImage.resize(width, height);
-      return Jimp.read(screenshotFrame).then(screenshotFrame => {
-        var mergedImage = screenshotFrame.composite(
+      croppedImage.resize(widthTop, heightTop);
+      return Jimp.read(showtop).then(showtop => {
+        var mergedImage = showtop.composite(
           croppedImage,
-          xCorrdinate,
-          yCorrdinate,
+          xCorrdinateTop,
+          yCorrdinateTop,
+          [Jimp.BLEND_DESTINATION_OVER, 1, 1]
+        );
+        return mergedImage;
+      });
+    }) //load font
+    .then(tpl =>
+      Jimp.loadFont(Jimp.FONT_SANS_128_BLACK).then(font => [tpl, font])
+    )
+    .then(data => {
+      tpl = data[0];
+      font = data[1];
+
+      return tpl.print(
+        font,
+        textData.placementX,
+        textData.placementY,
+        {
+          text: description,
+          alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
+          alignmentY: Jimp.VERTICAL_ALIGN_MIDDLE
+        },
+        textData.maxWidth,
+        textData.maxHeight
+      );
+    })
+    .then(finalImage => {
+      finalImage.quality(100).write(exportFolder + fileName);
+      console.log(chalk.red("Generated screenshot!!!"));
+    })
+    .catch(error => {
+      console.error(error);
+    });
+}
+// merge image to bottom layout
+async function mergeImageToBottom(fileName, description) {
+  return await Jimp.read(currentFolder + fileName)
+    .then(importImage => {
+      importImage.clone().write(activeImage);
+    })
+    .then(() => {
+      return Jimp.read(activeImage);
+    })
+    .then(activeImage => {
+      return activeImage.crop(
+        0,
+        (activeImage.bitmap.height * 2) / 10,
+        activeImage.bitmap.width,
+        activeImage.bitmap.height
+      );
+    })
+    .then(croppedImage => {
+      croppedImage.resize(widthBottom, heightBottom);
+      return Jimp.read(showbottom).then(showbottom => {
+        var mergedImage = showbottom.composite(
+          croppedImage,
+          xCorrdinateBottom,
+          yCorrdinateBottom,
           [Jimp.BLEND_DESTINATION_OVER, 1, 1]
         );
         return mergedImage;
@@ -129,7 +200,7 @@ async function askDescriptionImage(fileName) {
         "What's description for " +
         chalk.green(fileName) +
         " (max: 41 characters)?",
-      validate: description => description.length <= 41
+      validate: description => description.length <= maxCharacters
     },
     {
       name: "layout",
