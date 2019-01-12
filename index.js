@@ -40,6 +40,10 @@ function init() {
 // get image files
 async function getImageFiles() {
   var files = fs.readdirSync(currentFolder);
+  if (files.length == 0) {
+    console.log(chalk.red("No images in current folder!!!"));
+    return;
+  }
   for (var i = 0; i < files.length; i++) {
     var file = files[i];
     if (isImage(file)) {
@@ -65,6 +69,16 @@ async function mergeImages(fileName, description) {
     })
     .then(() => {
       return Jimp.read(activeImage);
+    })
+    .then(activeImage => {
+      console.log(activeImage.bitmap.width);
+      console.log(activeImage.bitmap.height);
+      return activeImage.crop(
+        0,
+        0,
+        activeImage.bitmap.width,
+        (activeImage.bitmap.height * 8) / 10
+      );
     })
     .then(imageActive => {
       imageActive.resize(width, height);
