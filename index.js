@@ -28,6 +28,7 @@ let textData = {
   placementX: 100,
   placementY: 200
 };
+var resizeHeight;
 
 // init
 function init() {
@@ -143,20 +144,24 @@ async function mergeImageToBottom(fileName, description) {
       return Jimp.read(activeImage);
     })
     .then(activeImage => {
-      return activeImage.crop(
+      resizeHeight = (activeImage.bitmap.height * 2) / 10;
+      var croppedImage = activeImage.crop(
         0,
         (activeImage.bitmap.height * 2) / 10,
         activeImage.bitmap.width,
         activeImage.bitmap.height
       );
+      return croppedImage;
     })
     .then(croppedImage => {
       croppedImage.resize(widthBottom, heightBottom);
+      console.log(croppedImage.bitmap.width);
+      console.log(croppedImage.bitmap.height);
       return Jimp.read(showbottom).then(showbottom => {
         var mergedImage = showbottom.composite(
           croppedImage,
           xCorrdinateBottom,
-          yCorrdinateBottom,
+          resizeHeight,
           [Jimp.BLEND_DESTINATION_OVER, 1, 1]
         );
         return mergedImage;
