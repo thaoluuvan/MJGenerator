@@ -6,4 +6,4 @@ With the aim of creating a simple **Screenshot** to upload **CH Play**, **App St
 # Usage
 ```mjgenerator g``` \
 After running the command Mjgenerator will automatically find all pictures in the current directory. For each image Mjgenerator will ask for the description and layout type. Enter the description and select the desired layout. Done !!! \
-Check the export folder in the current directory to see the results.
+Check the **export** folder in the current directory to see the results.
