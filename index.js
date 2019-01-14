@@ -20,14 +20,21 @@ const heightTop = 1454;
 const widthBottom = 885;
 const heightBottom = 1497;
 const maxCharacters = 41;
-let textData = {
+const textDataTop = {
   text: "Screenshotted by Morejump",
   maxWidth: 1000,
   maxHeight: 100,
   placementX: 100,
   placementY: 200
 };
-var resizeHeight;
+
+const textDataBottom = {
+  text: "Screenshotted by Morejump",
+  maxWidth: 1000,
+  maxHeight: 100,
+  placementX: 100,
+  placementY: 200
+};
 
 // init
 function init() {
@@ -113,15 +120,15 @@ async function mergeImageToTop(fileName, description) {
 
       return tpl.print(
         font,
-        textData.placementX,
-        textData.placementY,
+        textDataTop.placementX,
+        textDataTop.placementY,
         {
           text: description,
           alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
           alignmentY: Jimp.VERTICAL_ALIGN_MIDDLE
         },
-        textData.maxWidth,
-        textData.maxHeight
+        textDataTop.maxWidth,
+        textDataTop.maxHeight
       );
     })
     .then(finalImage => {
@@ -170,15 +177,15 @@ async function mergeImageToBottom(fileName, description) {
 
       return tpl.print(
         font,
-        textData.placementX,
-        textData.placementY,
+        textDataBottom.placementX,
+        textDataBottom.placementY,
         {
           text: description,
           alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
           alignmentY: Jimp.VERTICAL_ALIGN_MIDDLE
         },
-        textData.maxWidth,
-        textData.maxHeight
+        textDataBottom.maxWidth,
+        textDataBottom.maxHeight
       );
     })
     .then(finalImage => {
