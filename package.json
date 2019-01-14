@@ -20,5 +20,15 @@
   "preferGlobal": true,
   "bin": {
     "mjgenerator": "./main.js"
-  }
+  },
+  "keywords": [
+    "screenshot",
+    "cli",
+    "CH Play",
+    "App Store",
+    "Generator",
+    "Generate",
+    "Tool",
+    "automatically"
+  ]
 }
