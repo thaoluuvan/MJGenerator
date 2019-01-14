@@ -221,7 +221,7 @@ async function run() {
   console.log(
     chalk.green(
       "Congratulations, You are done. Check " +
-        chalk.red("export") +
+        chalk.red("GeneratedScreenshots") +
         " folder, plz!!!"
     )
   );
