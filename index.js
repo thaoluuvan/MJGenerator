@@ -146,7 +146,7 @@ async function mergeImageToBottom(fileName, description) {
       return Jimp.read(activeImage);
     })
     .then(activeImage => {
-      const croppedHeight = (activeImage.bitmap.height * 2) / 10;
+      const croppedHeight = (activeImage.bitmap.height * 1.5) / 10;
       const croppedImage = activeImage.crop(
         0,
         croppedHeight,
