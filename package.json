@@ -1,6 +1,6 @@
 {
   "name": "mjgenerator",
-  "version": "3.0.6",
+  "version": "3.0.7",
   "description": "This is the tool generating screenshot for CH Play, App Store",
   "main": "main.js",
   "scripts": {
