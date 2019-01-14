@@ -87,18 +87,13 @@ async function mergeImageToTop(fileName, description) {
       return Jimp.read(activeImage);
     })
     .then(activeImage => {
-      console.log(
-        "x: " + activeImage.bitmap.width + " y: " + activeImage.bitmap.height
-      );
       var croppedImage = activeImage.crop(
         0,
         0,
         activeImage.bitmap.width,
         (activeImage.bitmap.height * 8) / 10
       );
-      console.log(
-        "x: " + croppedImage.bitmap.width + " y: " + croppedImage.bitmap.height
-      );
+
       return croppedImage;
     })
     .then(croppedImage => {
@@ -151,25 +146,18 @@ async function mergeImageToBottom(fileName, description) {
       return Jimp.read(activeImage);
     })
     .then(activeImage => {
-      console.log(
-        "x: " + activeImage.bitmap.width + " y: " + activeImage.bitmap.height
-      );
-      var croppedImage = activeImage.crop(
+      const croppedHeight = (activeImage.bitmap.height * 2) / 10;
+      const croppedImage = activeImage.crop(
         0,
-        (activeImage.bitmap.height * 4) / 10,
+        croppedHeight,
         activeImage.bitmap.width,
-        activeImage.bitmap.height
-      );
-      console.log(
-        "x: " + activeImage.bitmap.width + " y: " + activeImage.bitmap.height
+        activeImage.bitmap.height - croppedHeight
       );
       return croppedImage;
     })
     .then(croppedImage => {
       croppedImage.resize(widthBottom, heightBottom);
-      console.log(
-        "x: " + croppedImage.bitmap.width + " y: " + croppedImage.bitmap.height
-      );
+
       return Jimp.read(showbottom).then(showbottom => {
         var mergedImage = showbottom.composite(
           croppedImage,
