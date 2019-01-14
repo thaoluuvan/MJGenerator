@@ -1,7 +1,7 @@
 {
   "name": "mjgenerator",
   "version": "3.0.3",
-  "description": "this is the tool generating screenshot for CH Play ",
+  "description": "this is the tool generating screenshot for CH Play, App Store",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

@@ -8,10 +8,9 @@ const fs = require("fs");
 //
 const introText = "MJ Generator";
 const currentFolder = "./";
-const exportFolder = "export/";
+const exportFolder = "GeneratedScreenshots/";
 const showtop = __dirname + "/import/showtop.jpg";
 const showbottom = __dirname + "/import/showbottom.jpg";
-const activeImage = "active/image.jpg";
 const xCorrdinateTop = 180;
 const yCorrdinateTop = 748;
 const xCorrdinateBottom = 180;
@@ -81,10 +80,7 @@ async function mergeImages(fileName, description, layoutType) {
 async function mergeImageToTop(fileName, description) {
   return await Jimp.read(currentFolder + fileName)
     .then(importImage => {
-      importImage.clone().write(activeImage);
-    })
-    .then(() => {
-      return Jimp.read(activeImage);
+      return importImage.clone();
     })
     .then(activeImage => {
       var croppedImage = activeImage.crop(
@@ -140,10 +136,7 @@ async function mergeImageToTop(fileName, description) {
 async function mergeImageToBottom(fileName, description) {
   return await Jimp.read(currentFolder + fileName)
     .then(importImage => {
-      importImage.clone().write(activeImage);
-    })
-    .then(() => {
-      return Jimp.read(activeImage);
+      return importImage.clone();
     })
     .then(activeImage => {
       const croppedHeight = (activeImage.bitmap.height * 1.5) / 10;
