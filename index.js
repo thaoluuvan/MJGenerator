@@ -28,7 +28,7 @@ const textDataTop = {
   placementY: 200
 };
 
-const textDataBottom = {
+var textDataBottom = {
   text: "Screenshotted by Morejump",
   maxWidth: 1000,
   maxHeight: 100,
@@ -159,6 +159,7 @@ async function mergeImageToBottom(fileName, description) {
       croppedImage.resize(widthBottom, heightBottom);
 
       return Jimp.read(showbottom).then(showbottom => {
+        textDataBottom.placementY = showbottom.bitmap.height - 200;
         var mergedImage = showbottom.composite(
           croppedImage,
           xCorrdinateBottom,
@@ -177,7 +178,7 @@ async function mergeImageToBottom(fileName, description) {
 
       return tpl.print(
         font,
-        textDataBottom.placementX,
+        textDataTop.placementX,
         textDataBottom.placementY,
         {
           text: description,
